@@ -36,7 +36,24 @@ class Atividades(Base):
     pessoa_id = Column(Integer, ForeignKey('pessoas.id'))
     pessoa= relationship("Pessoas")
     def __repr__(self):
-        return '<Atividade {}>'.format(self.nome)
+        return '<Atividade  {}>'.format(self.nome)
+
+    def save(self):
+        db_session.add(self)
+        db_session.commit()
+
+    def delete(self):
+        db_session.delete(self)
+        db_session.commit()
+
+class Usuarios(Base):
+    __tablename__ = 'usuarios'
+    id= Column(Integer, primary_key=True)
+    login= Column(String(30), unique=True)
+    senha= Column(String(20))
+
+    def __repr__(self):
+        return '<Usuario {}>'.format(self.login)
 
     def save(self):
         db_session.add(self)
